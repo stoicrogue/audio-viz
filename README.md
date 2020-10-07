@@ -1,5 +1,5 @@
 # audio-viz
-Web Audio API visualization test
+Creating a simple circular audio visualizer using Web Audio API (https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
 
 # Inspiration
 - based on https://www.kkhaydarov.com/audio-visualizer/
