@@ -44,6 +44,7 @@ function start(){
     analyser.connect(context.destination);
  
     frequency_array = new Uint8Array(analyser.frequencyBinCount);
+    analyser.getByteFrequencyData(frequency_array);
     
     audio.play();
     animationLooper();
@@ -51,6 +52,7 @@ function start(){
 
 function stop() {
     if (!!audio) {
+        console.log(frequency_array);
         audio.pause();
         audio.currentTime = 0;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -59,12 +61,25 @@ function stop() {
  
 function animationLooper(){
     initCanvas();
+    
     analyser.getByteFrequencyData(frequency_array);
-    for(var i = 0; i < bars; i++){
+
+    var pointsPerBar = Math.floor(analyser.frequencyBinCount / bars);
+    
+    for(var i = 0; i <= bars; i++){
         //divide a circle into equal parts
         rads = Math.PI * 2 / bars;
+        
+        var totalFrequency = 0;
+        var avgFrequency = 0;
 
-        bar_height = (frequency_array[i]*bar_multiplier);
+        for (var j = 0; j <= pointsPerBar; j++) {
+            totalFrequency += frequency_array[(i*pointsPerBar)+j];
+        }
+
+        avgFrequency = totalFrequency / pointsPerBar;
+
+        bar_height = (avgFrequency*bar_multiplier);
 
         // set coordinates
         x = center_x + Math.cos(rads * i) * (radius);
