@@ -11,6 +11,8 @@ Web Audio API visualization test
 - visualization resizes dynamically based on window size
 
 # Examples
-![Static Example Visualization (retrowave styling)](/example-retrowave-visualization.png)
+![Animated Example Visualization](/retrowave-sample-animation-short.gif)
 
-![Animated Example Visualization (retrowave styling)](/retrowave-sample-animation-short.gif)
+![Static Example Visualization](/example-retrowave-visualization.png)
+
+![Static Example Visualization w/big bars](/example-retrowave-visualization-big-bars.png)
