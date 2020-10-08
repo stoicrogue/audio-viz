@@ -52,7 +52,6 @@ function start(){
 
 function stop() {
     if (!!audio) {
-        console.log(frequency_array);
         audio.pause();
         audio.currentTime = 0;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -121,7 +120,7 @@ function updateSliderLabels() {
 function initCanvas() {
     // set to the size of device
     canvas = $("#renderer")[0];
-    canvas.width = window.innerWidth * .70;
+    canvas.width =  window.innerWidth * (window.innerWidth < 992 ? .9 : .70);
     canvas.height = window.innerHeight - 60;
     ctx = canvas.getContext("2d");
 
