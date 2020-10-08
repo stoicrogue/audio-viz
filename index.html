@@ -9,7 +9,7 @@
     
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <script type="text/javascript" src="circular-visualizer.js"></script>
+    <script type="text/javascript" src="circular-visualizer.js?version=2"></script>
     
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -33,12 +33,32 @@
                     <div class="panel-body">
                         <form>
                             <div class="form-group">
-                                <labal>Number of bars <span class="label label-default" id="barNumberSliderLabel">200</span></labal>
+                                <labal>
+                                    Number of bars 
+                                    <span class="label label-default" id="barNumberSliderLabel">200</span>
+                                </labal>
                                 <div id="numberOfBars"></div>
                             </div>
                             <div class="form-group">
-                                <labal>Bar width <span class="label label-default" id="barWidthSliderLabel">2</labal>
+                                <labal>
+                                    Bar width 
+                                    <span class="label label-default" id="barWidthSliderLabel">2</span>
+                                </labal>
                                 <div id="barWidth"></div>
+                            </div>
+                            <div class="form-group">
+                                <labal title="Graph the bottom X percent of the frequencies.">
+                                    Frequency Percentage Used
+                                    <span class="label label-default" id="frequencyPercentageSliderLabel">80</span>
+                                </labal>
+                                <div id="frequencyPercentage"></div>
+                            </div>
+                            <div class="form-group">
+                                <labal>
+                                    Colorize 
+                                    <input type="checkbox" id="colorize" class="form-check-input" checked />
+                                </labal>
+                                <div id="frequencyPercentage"></div>
                             </div>
                             <div class="form-group">
                                 <labal>Song</labal>
