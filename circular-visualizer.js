@@ -2,7 +2,7 @@ $(document).ready(function() {
 var canvas, ctx, center_x, center_y, radius, bars, 
     x_end, y_end, bar_height, bar_width,
     frequency_array, source, audio, base_height, bar_multiplier,
-    min_dimension;
+    min_dimension, track_progress_percent;
  
 bars = 215;
 bar_width = 3;
@@ -14,7 +14,7 @@ $("#stop-btn").on("click", function() { stop(); });
 $("#song").on("change", function() { start(); });
 $("#numberOfBars").slider({
       orientation: "horizontal",
-      range: 10,
+      min: 10,
       max: 300,
       step: 5,
       value: bars,
@@ -22,7 +22,7 @@ $("#numberOfBars").slider({
     });
 $("#barWidth").slider({
       orientation: "horizontal",
-      range: 1,
+      min: 1,
       max: 12,
       value: bar_width,
       change: updateSettings
@@ -59,15 +59,17 @@ function stop() {
 }
  
 function animationLooper(){
+    track_progress_percent = audio.currentTime / audio.duration;
+    
     initCanvas();
     
     analyser.getByteFrequencyData(frequency_array);
 
-    var pointsPerBar = Math.floor(analyser.frequencyBinCount / bars);
+    var pointsPerBar = Math.round(analyser.frequencyBinCount / bars);
     
-    for(var i = 0; i <= bars; i++){
+    for(var i = 1; i <= bars; i++){
         //divide a circle into equal parts
-        rads = Math.PI * 2 / bars;
+        rads = Math.PI / bars;
         
         var totalFrequency = 0;
         var avgFrequency = 0;
@@ -80,14 +82,16 @@ function animationLooper(){
 
         bar_height = (avgFrequency*bar_multiplier);
 
+        var centerCircleOffset = bar_width/2 + 1;
+
         // set coordinates
-        x = center_x + Math.cos(rads * i) * (radius);
-        y = center_y + Math.sin(rads * i) * (radius);
-        x_end = center_x + Math.cos(rads * i)*(radius + bar_height);
-        y_end = center_y + Math.sin(rads * i)*(radius + bar_height);
+        x = center_x - Math.cos(rads * i) * (radius + centerCircleOffset);
+        y = center_y - Math.sin(rads * i) * (radius + centerCircleOffset);
+        x_end = center_x - Math.cos(rads * i)*(radius + centerCircleOffset + bar_height);
+        y_end = center_y - Math.sin(rads * i)*(radius + centerCircleOffset + bar_height);
 
         //draw a bar
-        drawBar(x, y, x_end, y_end, bar_width,frequency_array[i]);
+        drawBar(x, y, x_end, y_end, bar_width, avgFrequency);
     }
     window.requestAnimationFrame(animationLooper);
 }
@@ -133,19 +137,27 @@ function initCanvas() {
 
     // find the center of the window
     center_x = canvas.width / 2;
-    center_y = canvas.height / 2;
+    center_y = canvas.height * .75;
 
     min_dimension = (center_x <= center_y ? center_x : center_y);
     radius = min_dimension * .25;
-    base_height = min_dimension - (radius * .75);
+    base_height = min_dimension - (radius * 1.5);
     bar_multiplier = 1 / ((25500/base_height)/100);
 
     //draw a circle
     var lineColor = "rgb(254,6,259)";
     ctx.strokeStyle = lineColor;
-    ctx.lineWidth = 5;
+    ctx.lineWidth = bar_width;
     ctx.beginPath();
-    ctx.arc(center_x,center_y,radius,0,2*Math.PI);
+    ctx.arc(center_x,center_y,radius,Math.PI,0);
+    ctx.stroke();
+
+    //draw track progress
+    var lineColor = "#defe47";
+    ctx.strokeStyle = lineColor;
+    ctx.lineWidth = bar_width * 1.5;
+    ctx.beginPath();
+    ctx.arc(center_x,center_y,radius,Math.PI, Math.PI + (Math.PI * track_progress_percent));
     ctx.stroke();
 }
 });
