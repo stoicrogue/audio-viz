@@ -1,0 +1,37 @@
+#main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+#settings-btn {
+    position: fixed; 
+    top: .5em;
+    right: .5em;
+    z-index: 10;
+    color: #f5f5f5;
+    font-size: 3em;
+    cursor: pointer;
+}
+#settings-btn:hover {
+    color: rgb(16, 4, 86);
+}
+#controls {
+    position: fixed;
+    z-index: 10;
+    bottom: 0;
+    left: 1em;
+    right: 1em;
+    text-align: center;
+    -webkit-box-shadow: 0px 0px 10px 5px rgb(201, 1, 126); 
+    box-shadow: 0px 0px 10px 5px rgb(201, 1, 126);
+    background-color: #e5e5e5;
+}
+#controls .form-group-lg .control-label {
+    font-size: 2rem;
+}
+.modal-header .close {
+    padding: 1rem;
+    margin: -1rem -1rem -1rem auto;
+    opacity: 1;
+}

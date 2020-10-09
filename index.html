@@ -2,82 +2,86 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MTM Visualizer</title>
+    <title>Audio Visualizer</title>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="jquery.ui.touch-punch.min.js"></script>
-    
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/94211b9804.js" crossorigin="anonymous"></script>
 
-    <script type="text/javascript" src="circular-visualizer.js?version=2"></script>
+    <script type="text/javascript" src="circular-visualizer.js?version=3"></script>
     
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    
-    <style>
-        body{
-            margin: 0;
-            padding: 1em;
-        }
-        #main {
-            width: inherit;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container" id="main">
-        <div class="row">
-            <div class="col-md-3 col-sm-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Settings</div>
-                    <div class="panel-body">
-                        <form>
-                            <div class="form-group">
-                                <labal>
-                                    Number of bars 
-                                    <span class="label label-default" id="barNumberSliderLabel">200</span>
-                                </labal>
-                                <div id="numberOfBars"></div>
-                            </div>
-                            <div class="form-group">
-                                <labal>
-                                    Bar width 
-                                    <span class="label label-default" id="barWidthSliderLabel">2</span>
-                                </labal>
-                                <div id="barWidth"></div>
-                            </div>
-                            <div class="form-group">
-                                <labal title="Graph the bottom X percent of the frequencies.">
-                                    Frequency Percentage Used
-                                    <span class="label label-default" id="frequencyPercentageSliderLabel">80</span>
-                                </labal>
-                                <div id="frequencyPercentage"></div>
-                            </div>
-                            <div class="form-group">
-                                <labal>
-                                    Colorize 
-                                    <input type="checkbox" id="colorize" class="form-check-input" checked />
-                                </labal>
-                                <div id="frequencyPercentage"></div>
-                            </div>
-                            <div class="form-group">
-                                <labal>Song</labal>
-                                <select class="form-control" id="song">
-                                    <option selected>mega-man-3.mp3</option>
-                                    <option>Butterfly Kiss.mp3</option>
-                                    <option>Rivers in the Desert.mp3</option>
-                                    <option>Coasting.mp3</option>
-                                </select>
-                            </div>
-                            <button type="button" class="btn btn-primary" id="play-btn">Play</button>
-                            <button type="button" class="btn btn-danger" id="stop-btn">Stop</button>
-                        </form>
-                    </div>
+    <i data-toggle="modal" data-target="#settings" id="settings-btn" class="fas fa-cog"></i>
+    
+    <div class="modal fade" id="settings">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>
+                        <div class="pull-left">Settings</div>
+                        <button type="button" class="close pull-right" data-dismiss="modal">
+                            <i class="fas fa-times-circle"></i>
+                        </button>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="settingsForm">
+                        <div class="form-group">
+                            <label>
+                                Number of bars 
+                                <span class="label label-default" id="barNumberSliderLabel">200</span>
+                            </label>
+                            <div id="numberOfBars"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                Bar width 
+                                <span class="label label-default" id="barWidthSliderLabel">2</span>
+                            </label>
+                            <div id="barWidth"></div>
+                        </div>
+                        <div class="form-group">
+                            <label title="Graph the bottom X percent of the frequencies.">
+                                Frequency Percentage Used
+                                <span class="label label-default" id="frequencyPercentageSliderLabel">80</span>
+                            </label>
+                            <div id="frequencyPercentage"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                Colorize 
+                                <input type="checkbox" id="colorize" class="form-check-input" checked />
+                            </label>
+                            <div id="frequencyPercentage"></div>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="col-md-9 col-sm-12">
-                <canvas id="renderer"></canvas>
-            </div>
+        </div>
+    </div>
+    <div id="main">
+        <canvas id="renderer"></canvas>
+    </div>
+    <div id="controls" class="panel">
+        <div class="panel-body">
+            <form id="controlsForm" class="form-inline">
+                <div class="form-group form-group-lg">
+                    <label class="control-label">Song</label>
+                    <select class="form-control" id="song">
+                        <option selected>mega-man-3.mp3</option>
+                        <option>Butterfly Kiss.mp3</option>
+                        <option>Rivers in the Desert.mp3</option>
+                        <option>Coasting.mp3</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-primary btn-lg" id="play-btn"><i class="fas fa-play"></i>&nbsp; Play</button>
+                <button type="button" class="btn btn-danger btn-lg" id="stop-btn"><i class="fas fa-stop"></i>&nbsp; Stop</button>
+            </form>
         </div>
     </div>
 </body>

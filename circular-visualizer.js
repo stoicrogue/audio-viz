@@ -138,8 +138,8 @@ function updateSliderLabels() {
 function initCanvas() {
     // set to the size of device
     canvas = $("#renderer")[0];
-    canvas.width =  window.innerWidth * (window.innerWidth < 992 ? .9 : .70);
-    canvas.height = window.innerHeight - 60;
+    canvas.width =  window.innerWidth;
+    canvas.height = window.innerHeight;
     ctx = canvas.getContext("2d");
 
     // style the background
@@ -151,7 +151,7 @@ function initCanvas() {
 
     // find the center of the window
     center_x = canvas.width / 2;
-    center_y = canvas.height * .75;
+    center_y = canvas.height * .66;
 
     min_dimension = (center_x <= center_y ? center_x : center_y);
     radius = min_dimension * .25;
